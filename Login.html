@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 50px;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #response {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Login</h2>
+    <form id="Login">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <input type="text" id="email" placeholder="Email" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        document.getElementById("Login").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let data = {
+                name: document.getElementById("name").value,
+                phone: document.getElementById("phone").value,
+                address: document.getElementById("address").value,
+                email: document.getElementById("email").value
+            };
+
+            fetch("https://script.google.com/macros/s/AKfycbyB2LVrLs7ZOknEIw3jp5RdYN9XjgjZuz1h39Hgk8gikoDdFhSElGBpwVbSvuIbKp36BA/exec", {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            }).then(response => response.text()).then(message => {
+                document.getElementById("response").innerText = message;
+            }).catch(error => {
+                document.getElementById("response").innerText = "Error saving data!";
+            });
+        });
+    </script>
+
+</body>
+</html>
